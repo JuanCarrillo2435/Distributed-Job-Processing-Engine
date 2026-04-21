@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: djp-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: job_engine_db
+    ports:
+      - "5433:5432" # mapped to 5433 to avoid conflicts with local pg
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: djp-redis
+    restart: always
+    ports:
+      - "6380:6379" # mapped to 6380 to avoid conflicts with local redis
+    command: redis-server --save 60 1 --loglevel warning
+    volumes:
+      - redis_data:/data
+
+  # Optionally you can just run backend natively or in docker. 
+  # For ease of dev, we run backend and frontend locally, connected to these containers.
+
+volumes:
+  postgres_data:
+  redis_data:

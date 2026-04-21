@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: hsl(240 10% 4%);
+  --color-card: hsl(240 10% 6%);
+  --color-popover: hsl(240 10% 4%);
+  --color-primary: hsl(250 80% 60%);
+  --color-muted: hsl(240 10% 12%);
+  --color-accent: hsl(240 10% 12%);
+  --color-border: hsl(240 10% 15%);
+  --color-input: hsl(240 10% 15%);
+  
+  --color-foreground: hsl(0 0% 98%);
+  --color-muted-foreground: hsl(240 5% 65%);
+}
+
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    @apply antialiased min-h-screen selection:bg-primary/30;
+  }
+}
+
+.glass {
+  background: rgba(15, 15, 20, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
