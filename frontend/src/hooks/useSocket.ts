@@ -32,7 +32,7 @@ export function useSocket() {
   const [jobs, setJobs] = useState<JobRecord[]>([]);
 
   useEffect(() => {
-    const s = io('http://localhost:4000');
+    const s = io('https://distributed-job-processing-engine.onrender.com');
     setSocket(s);
 
     s.on('metrics_update', (metric: SystemMetric) => {
@@ -55,7 +55,7 @@ export function useSocket() {
   }, []);
 
   const dispatchJob = async (name: string, shouldFail = false) => {
-    await fetch('http://localhost:4000/api/jobs', {
+    await fetch('https://distributed-job-processing-engine.onrender.com/api/jobs', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -67,15 +67,15 @@ export function useSocket() {
   };
 
   const togglePause = async (currentlyPaused: boolean) => {
-    await fetch(`http://localhost:4000/api/${currentlyPaused ? 'resume' : 'pause'}`, { method: 'POST' });
+    await fetch(`https://distributed-job-processing-engine.onrender.com/api/${currentlyPaused ? 'resume' : 'pause'}`, { method: 'POST' });
   };
 
   const purgeQueue = async () => {
-    await fetch('http://localhost:4000/api/purge', { method: 'POST' });
+    await fetch('https://distributed-job-processing-engine.onrender.com/api/purge', { method: 'POST' });
   };
 
   const retryFailed = async () => {
-    await fetch('http://localhost:4000/api/retry-failed', { method: 'POST' });
+    await fetch('https://distributed-job-processing-engine.onrender.com/api/retry-failed', { method: 'POST' });
   };
 
   return { socket, currentMetric, metrics, jobs, dispatchJob, togglePause, purgeQueue, retryFailed };
